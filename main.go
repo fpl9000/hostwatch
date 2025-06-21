@@ -14,7 +14,7 @@ import (
 func main() {
 	// Check command line arguments
 	if len(os.Args) < 2 {
-		fmt.Printf("Usage: %s <hostname or IP address>\n", os.Args[0])
+		fmt.Printf("Usage: %s <hostname or IP address>\n\n", os.Args[0])
 		fmt.Println("Examples:")
 		fmt.Println("  hostwatch.exe google.com")
 		fmt.Println("  hostwatch.exe 8.8.8.8")
@@ -62,17 +62,18 @@ func main() {
 	}
 
 	if isHostname {
+        // The user provided a hostname instead of an IP address, so display the resolved address.
 		fmt.Printf("Resolved to: %s (%s)\n", dst, getIPVersion(isIPv6))
 	}
 
 	// Keep pinging until we get a successful response
-	fmt.Println("Pinging until host responds... (Press Ctrl+C to stop)")
+	fmt.Println("\nPinging until host responds... (Press Ctrl+C to stop)")
 
 	seq := 1
 	for {
 		success := ping(dst, seq, isIPv6)
 		if success {
-			fmt.Printf("Host %s is now responding!\n", host)
+			fmt.Printf("\nHost %s is now responding!\n", host)
 			break
 		}
 
